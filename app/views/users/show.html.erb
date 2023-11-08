@@ -1,0 +1,38 @@
+ <h1>My Events</h1>
+ 
+ <% @events.each do |event| %>
+    <div class="post">
+      <div class="post-content">  
+        <%= "Event: " + event.title %>
+        <br>
+        <%= "Date: " + event.event_date.to_s %>
+      </div>
+      <br>
+    </div>
+  <% end %>
+
+  <br />
+
+  <h1>Upcoming Events</h1>
+
+  <% past_events_displayed = false %>
+  <% @attended_events.each do |attend| %>
+    <div class="attendances">
+      <% if attend.event_date > Date.current %> 
+        <div class="attendance-list">
+          <%= "Title: " + attend.title %>
+          <%= "Date: " + attend.event_date.to_s %>
+        </div>
+      <% else %>
+        <% unless past_events_displayed %>
+          <h1>Past Events</h1>
+          <% past_events_displayed = true %>
+        <% end %>
+        <div class="attendance-list">
+          <%= "Title: " + attend.title %>
+          <%= "Date: " + attend.event_date.to_s %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+        

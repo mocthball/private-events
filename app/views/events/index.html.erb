@@ -1,0 +1,38 @@
+ <% if user_signed_in? %>
+    <div> Welcome <%= current_user.email %> </div> 
+      <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
+      <%= button_to "Show Posts", "/users/show", method: :get %>
+  <% else %>
+    <%= link_to 'Register', new_user_registration_path %>
+    <%= button_to "Sign in", new_user_session_path %> 
+  <% end %>
+
+  <br>
+  <h1>Create Event</h1>
+
+  <%= form_with model: Event.new do |form| %>
+    <div class="field">
+      <%= form.label :title %><br />
+      <%= form.text_field :title, placeholder: "Title" %>
+    </div>
+
+    <div class="field">
+      <%= form.label :event_date %><br />
+      <%= form.date_field :event_date %>
+    </div>
+
+    <%= submit_tag("Submit") %>
+  <% end %>
+
+  <h1>All Events!</h1>
+  <% @events.each do |event| %>
+    <div class="post">
+      <div class="post-content">  
+        <%= "Name: " + (User.find(event.user_id).username).to_s %> <br />
+        <%= link_to(event.title, event_path(event)) %>
+        <br>
+        <%= "Date: " + event.event_date.to_s %>
+      </div>
+      <br>
+    </div>
+  <% end %>

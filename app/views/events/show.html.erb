@@ -1,0 +1,25 @@
+ <h1>Event Page</h1>
+ 
+<div class="post">
+  <div class="post-content">  
+    <%= "Event: " + @event.title %>
+    <br>
+    <%= "Date: " + @event.event_date.to_s %>
+  </div>
+  <br>
+</div>
+
+<%= form_with model: @attendance, url: attend_event_path(@event) do |form| %>
+  <%= form.submit "Attend" %>
+<% end %>
+
+<br />
+<% @attendances.each do |name| %>
+  <div class="attendances">
+    <div class="name"> 
+      <%= "Name: " + name %> <br />
+    </div>
+  </div>
+<%end%>
+
+
